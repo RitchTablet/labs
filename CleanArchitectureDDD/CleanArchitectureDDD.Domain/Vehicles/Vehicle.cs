@@ -6,6 +6,7 @@ namespace CleanArchitectureDDD.Domain.Vehicles
     {
         public Vehicle(Guid id) : base(id)
         {
+            Accessories = new List<Accessory>();
         }
 
         // Propiedades básicas
@@ -26,14 +27,14 @@ namespace CleanArchitectureDDD.Domain.Vehicles
 
 
          // Propiedades para alquiler
-        public double RentalPricePerDay { get; set; } // Precio de alquiler por día
+        public Money? RentalPricePerDay { get; set; } // Precio de alquiler por día
         public bool IsAvailableForRent { get; set; } // Indicador de si el vehículo está disponible para alquiler
         public DateTime? RentalStartDate { get; set; } // Fecha de inicio del alquiler
         public DateTime? RentalEndDate { get; set; } // Fecha de finalización del alquiler
         public string? RenterName { get; set; } // Nombre del arrendatario
 
          // Lista de accesorios
-        public List<Accessory> Accessories { get; set; }  = new List<Accessory>(); // Lista de accesorios
+        public List<Accessory> Accessories { get; set; } // Lista de accesorios
 
         // Dirección del vehículo
         public Address? Address { get; set; } // Ubicación del vehículo
