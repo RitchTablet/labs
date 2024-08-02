@@ -32,6 +32,7 @@ namespace CleanArchitectureDDD.Domain.Vehicles
         public DateTime? RentalStartDate { get; set; } // Fecha de inicio del alquiler
         public DateTime? RentalEndDate { get; set; } // Fecha de finalización del alquiler
         public string? RenterName { get; set; } // Nombre del arrendatario
+        public Money? MaintenancePricePerDay { get; set; } // Precio de alquiler por día
 
          // Lista de accesorios
         public List<Accessory> Accessories { get; set; } // Lista de accesorios

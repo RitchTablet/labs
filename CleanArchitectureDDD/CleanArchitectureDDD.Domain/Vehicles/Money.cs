@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace CleanArchitectureDDD.Domain.Vehicles
 {
-    public record Money(double Amount, Currency Currency)
+    public record Money(decimal Amount, Currency Currency)
     {
         public static Money operator +(Money firtsMoney, Money secondMoney)
         {
