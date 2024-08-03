@@ -29,10 +29,10 @@ namespace CleanArchitectureDDD.Domain.Vehicles
          // Propiedades para alquiler
         public Money? RentalPricePerDay { get; set; } // Precio de alquiler por día
         public bool IsAvailableForRent { get; set; } // Indicador de si el vehículo está disponible para alquiler
-        public DateTime? RentalStartDate { get; set; } // Fecha de inicio del alquiler
-        public DateTime? RentalEndDate { get; set; } // Fecha de finalización del alquiler
+        public DateOnly? RentalStartDate { get; set; } // Fecha de inicio del alquiler
+        public DateOnly? RentalEndDate { get; set; } // Fecha de finalización del alquiler
         public string? RenterName { get; set; } // Nombre del arrendatario
-        public Money? MaintenancePricePerDay { get; set; } // Precio de alquiler por día
+        public Money? MaintenancePricePerDay { get; set; } // Precio de mantenimiento por día
 
          // Lista de accesorios
         public List<Accessory> Accessories { get; set; } // Lista de accesorios

@@ -51,10 +51,8 @@ namespace CleanArchitectureDDD.Domain.Rentals
         public Vehicle? Vehicle { get; set; }
 
         // TODO: Add correctly PriceService... 
-        public static Rental Reserve(Guid userId, Guid vehicleId, RentalPeriod rentalPeriod, PriceService priceService)
+        public static Rental Reserve(Guid userId, Vehicle vehicle, RentalPeriod rentalPeriod, PriceService priceService)
         {
-            // TODO: test vehicle
-            var vehicle = new Vehicle(new Guid());
 
             // Usar el servicio de precios para calcular los costos
             Money rentalPeriodPrice = priceService.CalculateRentalPeriodPrice(rentalPeriod, vehicle);
@@ -65,7 +63,7 @@ namespace CleanArchitectureDDD.Domain.Rentals
             var rental = new Rental(
                 id: Guid.NewGuid(),          // Genera un nuevo ID único para el alquiler
                 userId: userId,              // ID del usuario que hace la reserva
-                vehicleId: vehicleId,        // ID del vehículo reservado
+                vehicleId: vehicle.Id,        // ID del vehículo reservado
                 status: RentalStatus.Approved, // Estado del alquiler
                 rentalPeriod: rentalPeriod,  // Período del alquiler
                 rentalPeriodPrice: rentalPeriodPrice, // Precio del período de alquiler
@@ -73,10 +71,23 @@ namespace CleanArchitectureDDD.Domain.Rentals
                 totalPrice: totalPrice       // Precio total
             );
 
+            
+            vehicle.RentalStartDate = rentalPeriod.StartDate;
+            vehicle.RentalEndDate = rentalPeriod.EndDate;
 
             rental.AddDomainEvent(new RentalReserveDomainEvent(rental.Id));
 
             return rental;
+        }
+
+        public Result Confirm(DateTime utcnoew)
+        {
+            if(Status != RentalStatus.Active)
+            {
+                // TODO: add exceptions
+            }
+
+            return Result.Success();
         }
     }
 }
