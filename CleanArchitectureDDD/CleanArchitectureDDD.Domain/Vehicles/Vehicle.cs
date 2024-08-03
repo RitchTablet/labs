@@ -1,4 +1,5 @@
 using CleanArchitectureDDD.Domain.Abstractions;
+using CleanArchitectureDDD.Domain.Shared;
 
 namespace CleanArchitectureDDD.Domain.Vehicles
 {

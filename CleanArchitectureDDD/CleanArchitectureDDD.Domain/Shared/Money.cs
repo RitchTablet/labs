@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CleanArchitectureDDD.Domain.Vehicles
+namespace CleanArchitectureDDD.Domain.Shared
 {
     public record Money(decimal Amount, Currency Currency)
     {
@@ -18,6 +18,6 @@ namespace CleanArchitectureDDD.Domain.Vehicles
             return new Money(totalSum, firtsMoney.Currency);
         }
 
-        public static Money Zero()=> new Money(0, Currency.NONE);
+        public static Money Zero() => new Money(0, Currency.NONE);
     }
 }

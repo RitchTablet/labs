@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using CleanArchitectureDDD.Domain.Abstractions;
 using CleanArchitectureDDD.Domain.Rentals.Events;
 using CleanArchitectureDDD.Domain.Rentals.Services;
+using CleanArchitectureDDD.Domain.Shared;
 using CleanArchitectureDDD.Domain.Users;
 using CleanArchitectureDDD.Domain.Vehicles;
 

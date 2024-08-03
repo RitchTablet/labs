@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CleanArchitectureDDD.Domain.Vehicles
+namespace CleanArchitectureDDD.Domain.Shared
 {
     public class Currency
     {
