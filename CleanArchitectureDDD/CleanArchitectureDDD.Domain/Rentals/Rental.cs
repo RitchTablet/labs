@@ -109,6 +109,21 @@ namespace CleanArchitectureDDD.Domain.Rentals
             return Result.Success();
         }
 
+
+        public Result Complete(DateTime utcnoew)
+        {
+            if (Status != RentalStatus.Active)
+            {
+                return Result.Failure(RentalErrors.NotActive);
+            }
+
+            Status = RentalStatus.Completed;
+
+            AddDomainEvent(new RentalCompleteDomainEvent(Id));
+
+            return Result.Success();
+        }
+
         public Result Reject(DateTime utcnoew)
         {
             if (Status != RentalStatus.PendingApprove)

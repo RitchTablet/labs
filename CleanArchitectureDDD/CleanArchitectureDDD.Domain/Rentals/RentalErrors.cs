@@ -13,5 +13,7 @@ namespace CleanArchitectureDDD.Domain.Rentals
         public static Error NotPendingApproved =  new Error("Rental.NotPendingApproved", "The rental is not pending for approved.");
         public static Error NotApproved =  new Error("Rental.NotApproved", "The rental is not approved.");
         public static Error Active =  new Error("Rental.Active", "The rental is active.");
+        public static Error NotActive =  new Error("Rental.NotActive", "The rental is not active.");
+        public static Error NotComplete =  new Error("Rental.NotComplete", "The rental is not complete.");
     }
 }
