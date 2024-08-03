@@ -64,7 +64,7 @@ namespace CleanArchitectureDDD.Domain.Rentals
                 id: Guid.NewGuid(),          // Genera un nuevo ID único para el alquiler
                 userId: userId,              // ID del usuario que hace la reserva
                 vehicleId: vehicle.Id,        // ID del vehículo reservado
-                status: RentalStatus.Approved, // Estado del alquiler
+                status: RentalStatus.PendingApprove, // Estado del alquiler
                 rentalPeriod: rentalPeriod,  // Período del alquiler
                 rentalPeriodPrice: rentalPeriodPrice, // Precio del período de alquiler
                 maintenancePrice: maintenancePrice,   // Precio de mantenimiento
@@ -82,10 +82,47 @@ namespace CleanArchitectureDDD.Domain.Rentals
 
         public Result Confirm(DateTime utcnoew)
         {
-            if(Status != RentalStatus.Active)
+            if(Status != RentalStatus.PendingApprove)
             {
-                // TODO: add exceptions
+                return Result.Failure(RentalErrors.NotPendingApproved);
             }
+
+            Status =  RentalStatus.Approved;
+            
+            AddDomainEvent(new RentalConfirmDomainEvent(Id));
+
+            return Result.Success();
+        }
+
+        public Result Reject(DateTime utcnoew)
+        {
+            if(Status != RentalStatus.PendingApprove)
+            {
+                return Result.Failure(RentalErrors.NotPendingApproved);
+            }
+
+            Status =  RentalStatus.Reject;
+            
+            AddDomainEvent(new RentalRejectDomainEvent(Id));
+
+            return Result.Success();
+        }
+
+        public Result Cancel(DateTime utcnoew)
+        {
+            if(Status == RentalStatus.Active)
+            {
+                return Result.Failure(RentalErrors.Active);
+            }
+
+            if(Status != RentalStatus.Approved)
+            {
+                return Result.Failure(RentalErrors.NotApproved);
+            }
+
+            Status =  RentalStatus.Cancelled;
+            
+            AddDomainEvent(new RentalCancelDomainEvent(Id));
 
             return Result.Success();
         }
