@@ -71,7 +71,7 @@ namespace CleanArchitectureDDD.Domain.Rentals
                 totalPrice: totalPrice       // Precio total
             );
 
-            
+
             vehicle.RentalStartDate = rentalPeriod.StartDate;
             vehicle.RentalEndDate = rentalPeriod.EndDate;
 
@@ -80,15 +80,29 @@ namespace CleanArchitectureDDD.Domain.Rentals
             return rental;
         }
 
-        public Result Confirm(DateTime utcnoew)
+        public Result Approve(DateTime utcnoew)
         {
-            if(Status != RentalStatus.PendingApprove)
+            if (Status != RentalStatus.PendingApprove)
             {
                 return Result.Failure(RentalErrors.NotPendingApproved);
             }
 
-            Status =  RentalStatus.Approved;
-            
+            Status = RentalStatus.Approved;
+
+            AddDomainEvent(new RentalApproveDomainEvent(Id));
+
+            return Result.Success();
+        }
+
+        public Result Confirm(DateTime utcnoew)
+        {
+            if (Status != RentalStatus.Approved)
+            {
+                return Result.Failure(RentalErrors.NotApproved);
+            }
+
+            Status = RentalStatus.Active;
+
             AddDomainEvent(new RentalConfirmDomainEvent(Id));
 
             return Result.Success();
@@ -96,13 +110,13 @@ namespace CleanArchitectureDDD.Domain.Rentals
 
         public Result Reject(DateTime utcnoew)
         {
-            if(Status != RentalStatus.PendingApprove)
+            if (Status != RentalStatus.PendingApprove)
             {
                 return Result.Failure(RentalErrors.NotPendingApproved);
             }
 
-            Status =  RentalStatus.Reject;
-            
+            Status = RentalStatus.Reject;
+
             AddDomainEvent(new RentalRejectDomainEvent(Id));
 
             return Result.Success();
@@ -110,18 +124,18 @@ namespace CleanArchitectureDDD.Domain.Rentals
 
         public Result Cancel(DateTime utcnoew)
         {
-            if(Status == RentalStatus.Active)
+            if (Status == RentalStatus.Active)
             {
                 return Result.Failure(RentalErrors.Active);
             }
 
-            if(Status != RentalStatus.Approved)
+            if (Status != RentalStatus.Approved)
             {
                 return Result.Failure(RentalErrors.NotApproved);
             }
 
-            Status =  RentalStatus.Cancelled;
-            
+            Status = RentalStatus.Cancelled;
+
             AddDomainEvent(new RentalCancelDomainEvent(Id));
 
             return Result.Success();
