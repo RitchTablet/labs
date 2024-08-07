@@ -12,7 +12,7 @@ namespace CleanArchitectureDDD.Domain.Reviews
 {
     public class Review : Entity
     {
-        private Review(Guid id, string content, User user, Vehicle vehicle, Rental rental) : base(id)
+        private Review(Guid id, Content content, User user, Vehicle vehicle, Rental rental) : base(id)
         {
             Content = content;
             User = user ?? throw new ArgumentNullException(nameof(user));
@@ -25,7 +25,7 @@ namespace CleanArchitectureDDD.Domain.Reviews
             RentalId = rental.Id;
         }
 
-        public string Content { get; set; }
+        public Content Content { get; set; }
 
         public Guid UserId { get; set; }
         public User User { get; set; }
@@ -37,7 +37,7 @@ namespace CleanArchitectureDDD.Domain.Reviews
         public Rental Rental { get; set; }
 
 
-        public static Result<Review> Create(Rental rental, User user, Vehicle vehicle, string content)
+        public static Result<Review> Create(Rental rental, User user, Vehicle vehicle, Content content)
         {
             if (rental.Status != RentalStatus.Completed)
             {

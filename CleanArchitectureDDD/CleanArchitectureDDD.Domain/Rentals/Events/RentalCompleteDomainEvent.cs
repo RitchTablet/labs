@@ -6,5 +6,5 @@ using MediatR;
 
 namespace CleanArchitectureDDD.Domain.Rentals.Events
 {
-    public record RentalCompleteDomainEvent(Guid rentalId) : INotification
+    public record RentalCompleteDomainEvent(Guid rentalId) : INotification;
 }
